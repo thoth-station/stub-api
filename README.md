@@ -4,11 +4,11 @@ This is a project demonstrating the basic structure of a API Service as used by 
 
 ## run the API locally
 
-`DEBUG=1 STUB_API_APP_SECRET_KEY=start123 gunicorn stub.entrypoint:app -p 8000`
+`STUB_DEBUG=1 STUB_API_APP_SECRET_KEY=start123 gunicorn stub.entrypoint:app`
 
 ## run Jaeger locally
 
-```
+```shell
 docker run -d -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 \
     -p 5775:5775/udp \
     -p 6831:6831/udp \
