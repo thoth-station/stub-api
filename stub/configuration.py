@@ -25,3 +25,4 @@ class Configuration:
 
     APP_SECRET_KEY = os.environ["STUB_API_APP_SECRET_KEY"]
     SWAGGER_YAML_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../openapi")
+    JAEGER_HOST = os.getenv("JAEGER_HOST", "localhost")

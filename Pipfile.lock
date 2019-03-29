@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a8f567cbc297530e85f865bae3194bde79004353c25c590e2028d79a379eafc9"
+            "sha256": "12199520f2e4827c7644cea4e0683e5a50475b083bbe0ccd6a9c14b63e9a32ce"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -74,6 +74,13 @@
             "index": "pypi",
             "version": "==1.0.2"
         },
+        "flask-opentracing": {
+            "hashes": [
+                "sha256:3df24834ee21d8d519f7302101488bd28a0dd68ff9b79812925732d56df87d18"
+            ],
+            "index": "pypi",
+            "version": "==1.0.0"
+        },
         "flask-script": {
             "hashes": [
                 "sha256:6425963d91054cfcc185807141c7314a9c5ad46325911bd24dcb489bd0161c65"
@@ -108,13 +115,6 @@
                 "sha256:b12271b2047cb23eeb98c8b5622e2e5c5e9abd9784a153e9d8ef9cb4dd09d749"
             ],
             "version": "==1.1.0"
-        },
-        "jaeger-client": {
-            "hashes": [
-                "sha256:12e44bafa4a9a3fad1187183be8013e1ed92c06d5641492fc63e9619d6ec39ce"
-            ],
-            "index": "pypi",
-            "version": "==3.13.0"
         },
         "jinja2": {
             "hashes": [
@@ -173,9 +173,9 @@
         },
         "opentracing": {
             "hashes": [
-                "sha256:9b3f7c7a20c34170b9253c97121256264daf6b5f090035c732c6e2548cc5c0a7"
+                "sha256:39a999847b1827112ca6ccdb1c66e315c6a5ecd53131eed1ae363223671a9d68"
             ],
-            "version": "==1.3.0"
+            "version": "==2.0.0"
         },
         "pathlib": {
             "hashes": [
@@ -254,29 +254,6 @@
             ],
             "index": "pypi",
             "version": "==0.8.1"
-        },
-        "threadloop": {
-            "hashes": [
-                "sha256:5c90dbefab6ffbdba26afb4829d2a9df8275d13ac7dc58dccb0e279992679599",
-                "sha256:8b180aac31013de13c2ad5c834819771992d350267bddb854613ae77ef571944"
-            ],
-            "version": "==1.0.2"
-        },
-        "thrift": {
-            "hashes": [
-                "sha256:7d59ac4fdcb2c58037ebd4a9da5f9a49e3e034bf75b3f26d9fe48ba3d8806e6b"
-            ],
-            "version": "==0.11.0"
-        },
-        "tornado": {
-            "hashes": [
-                "sha256:5ef073ac6180038ccf99411fe05ae9aafb675952a2c8db60592d5daf8401f803",
-                "sha256:6d14e47eab0e15799cf3cdcc86b0b98279da68522caace2bd7ce644287685f0a",
-                "sha256:92b7ca81e18ba9ec3031a7ee73d4577ac21d41a0c9b775a9182f43301c3b5f8e",
-                "sha256:ab587996fe6fb9ce65abfda440f9b61e4f9f2cf921967723540679176915e4c3",
-                "sha256:b36298e9f63f18cad97378db2222c0e0ca6a55f6304e605515e05a25483ed51a"
-            ],
-            "version": "==4.5.3"
         },
         "tzlocal": {
             "hashes": [

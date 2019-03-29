@@ -26,9 +26,12 @@ import connexion
 from connexion.resolver import RestyResolver
 
 
+import opentracing
+from jaeger_client import Config as JaegerConfig
 from flask import redirect, jsonify
 from flask_script import Manager
 from prometheus_flask_exporter import PrometheusMetrics
+from jaeger_client.metrics.prometheus import PrometheusMetricsFactory
 
 from thoth.common import datetime2datetime_str
 from thoth.common import init_logging
@@ -43,6 +46,9 @@ init_logging(logging_env_var_start="STUB_LOG_")
 _LOGGER = logging.getLogger("stub")
 _LOGGER.setLevel(logging.DEBUG if bool(int(os.getenv("STUB_DEBUG", 0))) else logging.INFO)
 
+_LOGGER.info(f"This is Stub API v{__version__}")
+_LOGGER.debug("DEBUG mode is enabled!")
+
 # Expose for uWSGI.
 app = connexion.FlaskApp(__name__, specification_dir=Configuration.SWAGGER_YAML_PATH, debug=True)
 
@@ -55,8 +61,30 @@ app.add_api(
     validate_responses=True,
 )
 
+
 application = app.app
 
+
+def init_jaeger_tracer(service_name):
+    """Create a Jaeger/OpenTracing configuration."""
+    config = JaegerConfig(
+        config={
+            "sampler": {"type": "const", "param": 1},
+            "logging": True,
+            "local_agent": {"reporting_host": Configuration.JAEGER_HOST},
+        },
+        service_name=service_name,
+        validate=True,
+        metrics_factory=PrometheusMetricsFactory(namespace=service_name),
+    )
+
+    return config.initialize_tracer()
+
+
+# create tracer and put it in the application configuration
+Configuration.tracer = init_jaeger_tracer("stub_api")
+
+# create metrics and manager
 metrics = PrometheusMetrics(application)
 manager = Manager(application)
 
@@ -133,5 +161,7 @@ def internal_server_error(exc):
 
 if __name__ == "__main__":
     app.run()
+
+    tracer.close()
 
     sys.exit(1)

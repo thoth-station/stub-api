@@ -31,8 +31,11 @@ _LOGGER = logging.getLogger(__name__)
 
 
 def info_get():
-    return (
-        {"version": __version__, "connection-version": connexion.__version__},
-        200,
-        {"x-thoth-stub-api-version": __version__},
-    )
+    with Configuration.tracer.start_span("info_get") as span:
+        span.log_kv({"event": "info_get", "stub_api_version": __version__})
+
+        return (
+            {"version": __version__, "connection-version": connexion.__version__},
+            200,
+            {"x-thoth-stub-api-version": __version__},
+        )

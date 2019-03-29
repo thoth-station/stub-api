@@ -11,13 +11,13 @@ pylint = "*"
 
 [packages]
 thoth-common = "*"
-jaeger-client = "*"
 prometheus-client = "*"
 prometheus-flask-exporter = "*"
 connexion = "==2.2.0"
 flask = "*"
 gunicorn = "*"
 flask-script = "*"
+flask-opentracing = "*"
 
 [requires]
 python_version = "3.6"
