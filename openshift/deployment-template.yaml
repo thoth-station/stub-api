@@ -1,0 +1,124 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: stub-api-deployment
+  annotations:
+    description: "This is Stub API"
+    openshift.io/display-name: "Stub API"
+    version: 0.1.0
+    tags: stub,thoth,api,ai-stacks
+    template.openshift.io/documentation-url: "https://github.com/Thoth-Station/"
+    template.openshift.io/long-description: "This is Stub API"
+    template.openshift.io/provider-display-name: "Red Hat, Inc."
+  labels:
+    template: stub-api-deployment
+    app: stub
+    component: stub-api
+
+objects:
+  - kind: Route
+    apiVersion: route.openshift.io/v1
+    metadata:
+      name: stub-api
+      labels:
+        app: stub
+        component: stub-api
+    spec:
+      to:
+        kind: Service
+        name: stub-api
+
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      labels:
+        app: stub
+        component: stub-api
+      name: stub-api
+    spec:
+      ports:
+        - port: 80
+          protocol: TCP
+          targetPort: 8080
+      selector:
+        service: stub-api
+
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      labels:
+        app: stub
+        component: stub-api
+      name: stub-api
+    spec:
+      replicas: 1
+      selector:
+        service: stub-api
+      template:
+        metadata:
+          labels:
+            service: stub-api
+        spec:
+          serviceAccountName: stub
+          containers:
+            - name: stub-api
+              env:
+                - name: APP_MODULE
+                  value: 'stub.entrypoint:app'
+                - name: STUB_API_APP_SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: stub
+                      key: app-secret-key
+                - name: SENTRY_DSN
+                  valueFrom:
+                    secretKeyRef:
+                      name: stub
+                      key: sentry-dsn
+              ports:
+                - containerPort: 8080
+                  protocol: TCP
+              resources:
+                requests:
+                  memory: "384Mi"
+                  cpu: "125m"
+                limits:
+                  memory: "384Mi"
+                  cpu: "500m"
+              readinessProbe:
+                httpGet:
+                  path: '/readiness'
+                  port: 8080
+                  scheme: HTTP
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                timeoutSeconds: 10
+              livenessProbe:
+                httpGet:
+                  path: '/liveness'
+                  port: 8080
+                  scheme: HTTP
+                initialDelaySeconds: 5
+                periodSeconds: 60
+                timeoutSeconds: 10
+      test: false
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChangeParams:
+            automatic: true
+            containerNames:
+              - stub-api
+            from:
+              kind: ImageStreamTag
+              name: 'stub-api:latest'
+
+  - kind: ImageStream
+    apiVersion: image.openshift.io/v1
+    metadata:
+      labels:
+        app: stub
+        component: stub-api
+      name: stub-api
+    spec:
+      name: latest

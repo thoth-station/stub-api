@@ -1,0 +1,26 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+coala = "*"
+coala-bears = "*"
+black = "*"
+pylint = "*"
+
+[packages]
+thoth-common = "*"
+jaeger-client = "*"
+prometheus-client = "*"
+prometheus-flask-exporter = "*"
+connexion = "==2.2.0"
+flask = "*"
+gunicorn = "*"
+flask-script = "*"
+
+[requires]
+python_version = "3.6"
+
+[pipenv]
+allow_prereleases = true

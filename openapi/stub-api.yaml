@@ -1,0 +1,19 @@
+openapi: "3.0.0"
+
+info:
+  title: "Stub API"
+  version: "0.1.0"
+
+servers:
+  - url: "/api/v1"
+
+paths:
+  "/info":
+    get:
+      operationId: stub.api.info_get
+      tags:
+        - info
+      summary: "Get some information about this API."
+      responses:
+        "200":
+          description: "Successful response with information."
