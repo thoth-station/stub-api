@@ -19,10 +19,13 @@
 
 import logging
 import json
+import time
 
+import requests
 import connexion
 from connexion import NoContent
 
+from opentracing_instrumentation.client_hooks import install_all_patches
 
 from .. import __version__
 from ..configuration import Configuration
@@ -33,6 +36,15 @@ _LOGGER = logging.getLogger(__name__)
 def info_get():
     with Configuration.tracer.start_span("info_get") as span:
         span.log_kv({"event": "info_get", "stub_api_version": __version__})
+
+        # Automatically trace all requests made with 'requests' library.
+        install_all_patches()
+
+        with Configuration.tracer.start_span("google_query", child_of=span) as google_query_span:
+            google_query_span.log_kv({"event": "query_google"})
+            url = "http://google.com/"
+            # Make the actual request to webserver.
+            requests.get(url)
 
         return (
             {"version": __version__, "connection-version": connexion.__version__},
