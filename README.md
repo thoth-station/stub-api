@@ -1,6 +1,8 @@
 # Stub API
 
-This is a project demonstrating the basic structure of a API Service as used by the Thoth-Station.
+This is a project demonstrating the basic structure of a API Service as
+used by the Thoth-Station. The service itself exports Prometheus metrics,
+and is instrumented to send Jaeger tracing. 
 
 ## run the API locally
 
