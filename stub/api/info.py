@@ -23,6 +23,7 @@ import time
 
 import requests
 import connexion
+import jaeger_client
 from connexion import NoContent
 
 from opentracing_instrumentation.client_hooks import install_all_patches
@@ -47,7 +48,11 @@ def info_get():
             requests.get(url)
 
         return (
-            {"version": __version__, "connection-version": connexion.__version__},
+            {
+                "version": __version__,
+                "connectionVersion": connexion.__version__,
+                "jaegerClientVersion": jaeger_client.__version__,
+            },
             200,
             {"x-thoth-stub-api-version": __version__},
         )
