@@ -13,12 +13,13 @@ pylint = "*"
 thoth-common = "*"
 prometheus-client = "*"
 prometheus-flask-exporter = "*"
-connexion = "==2.2.0"
+connexion = {extras = ["swagger-ui"], version = "*"}
 flask = "*"
 gunicorn = "*"
 flask-script = "*"
 opentracing-instrumentation = "*"
 requests = "*"
+jaeger-client = "*"
 
 [requires]
 python_version = "3.6"

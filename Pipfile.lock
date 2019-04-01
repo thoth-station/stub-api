@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6ea319b9523033a06a78158959ed3899eecfa3b0cd0296f3a19852c0eedb3e8e"
+            "sha256": "00140f1347a2d7ccc2b81a376f36c5cc43ebad0e4979659fcbd76c1e0efb8eea"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -52,12 +52,14 @@
             "version": "==1.2.2"
         },
         "connexion": {
+            "extras": [
+                "swagger-ui"
+            ],
             "hashes": [
-                "sha256:24a0f02e601c37de81840a91dff68bbfa48df819ac75b7f8a9cd7e0e2ec8af95",
-                "sha256:3511c369fb1fd1be56ac1d7ba2910f710f59b9cdb36338135afbf0fe51af189e"
+                "sha256:e74544e382f732f97ec1c7d05a9d79e2c101e135f606a776e5f8dd1c478ff7e0"
             ],
             "index": "pypi",
-            "version": "==2.2.0"
+            "version": "==2018.0.dev1"
         },
         "contextlib2": {
             "hashes": [
@@ -121,6 +123,13 @@
                 "sha256:b12271b2047cb23eeb98c8b5622e2e5c5e9abd9784a153e9d8ef9cb4dd09d749"
             ],
             "version": "==1.1.0"
+        },
+        "jaeger-client": {
+            "hashes": [
+                "sha256:12e44bafa4a9a3fad1187183be8013e1ed92c06d5641492fc63e9619d6ec39ce"
+            ],
+            "index": "pypi",
+            "version": "==3.13.0"
         },
         "jinja2": {
             "hashes": [
@@ -262,12 +271,34 @@
             ],
             "version": "==1.12.0"
         },
+        "swagger-ui-bundle": {
+            "hashes": [
+                "sha256:0009f3cb6e60b36a57a595eabbff79ecb364c44e0cdf718667d90a93265f2cf2",
+                "sha256:c7947ebf03632426b64082f85cb9857e42d4a57075ee962be6f0ec6f32ffe8ec",
+                "sha256:ce6a4f9af1e38ce2e5eace4cc3d4805aa05ea40881b7b57b1efab8c1d2bf3afd"
+            ],
+            "markers": "extra == 'swagger-ui'",
+            "version": "==0.0.3"
+        },
         "thoth-common": {
             "hashes": [
                 "sha256:ec1987ee0fceaf7829c05ef86b2d32b613730e7fcdb595ced595e99eb96a52dc"
             ],
             "index": "pypi",
             "version": "==0.8.1"
+        },
+        "threadloop": {
+            "hashes": [
+                "sha256:5c90dbefab6ffbdba26afb4829d2a9df8275d13ac7dc58dccb0e279992679599",
+                "sha256:8b180aac31013de13c2ad5c834819771992d350267bddb854613ae77ef571944"
+            ],
+            "version": "==1.0.2"
+        },
+        "thrift": {
+            "hashes": [
+                "sha256:7d59ac4fdcb2c58037ebd4a9da5f9a49e3e034bf75b3f26d9fe48ba3d8806e6b"
+            ],
+            "version": "==0.11.0"
         },
         "tornado": {
             "hashes": [
