@@ -28,8 +28,8 @@ from connexion import NoContent
 
 from opentracing_instrumentation.client_hooks import install_all_patches
 
-from .. import __version__
-from ..configuration import Configuration
+from stub import __version__
+from configuration import Configuration
 
 _LOGGER = logging.getLogger(__name__)
 

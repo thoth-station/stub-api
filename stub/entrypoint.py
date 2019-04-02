@@ -162,6 +162,6 @@ def internal_server_error(exc):
 if __name__ == "__main__":
     app.run()
 
-    tracer.close()
+    Configuration.tracer.close()
 
     sys.exit(1)

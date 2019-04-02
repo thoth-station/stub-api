@@ -21,3 +21,7 @@ docker run -d -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 \
     -p 9411:9411 \
     jaegertracing/all-in-one:latest`
 ```
+
+# Generate GRPC code
+
+`./run_codegen.py`
