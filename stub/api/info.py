@@ -50,7 +50,7 @@ def info_get():
         return (
             {
                 "version": __version__,
-                "connectionVersion": connexion.__version__,
+                "connexionVersion": connexion.__version__,
                 "jaegerClientVersion": jaeger_client.__version__,
             },
             200,
