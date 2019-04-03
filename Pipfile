@@ -4,7 +4,6 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-grpcio-tools = "*"
 
 [packages]
 thoth-common = "*"
@@ -17,8 +16,9 @@ flask-script = "*"
 opentracing-instrumentation = "*"
 requests = "*"
 jaeger-client = "*"
-grpcio-opentracing = "*"
 grpcio = "==1.17.1"
+grpcio-tools = "==1.17.1"
+grpcio-opentracing = "*"
 
 [requires]
 python_version = "3.6"

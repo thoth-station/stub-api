@@ -18,7 +18,7 @@ You should know it by now: `pipenv install`
 
 ### Generate GRPC code
 
-If you used `pipenv install --dev` to install the gRPC tools, you could generate all the files required for gRPC client and server: `./run_codegen.py`
+You could generate all the files required for gRPC client and server: `./run_codegen.py`
 
 ## run Jaeger locally
 

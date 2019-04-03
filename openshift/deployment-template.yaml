@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: stub-api-deployment
+  name:   
   annotations:
     description: "This is Stub API"
     openshift.io/display-name: "Stub API"
@@ -77,9 +77,10 @@ objects:
           serviceAccountName: stub
           containers:
             - name: stub-openapi
+              image: stub-api
               env:
                 - name: APP_MODULE
-                  value: 'stub.entrypoint:app'
+                  value: 'thoth.stub.openapi_server:app'
                 - name: STUB_API_APP_SECRET_KEY
                   valueFrom:
                     secretKeyRef:
@@ -117,6 +118,7 @@ objects:
                 periodSeconds: 60
                 timeoutSeconds: 10
             - name: stub-grpc
+              image: stub-api
               env:
                 - name: APP_FILE
                   value: 'thoth/stub/grpc_server.py'
@@ -147,7 +149,8 @@ objects:
           imageChangeParams:
             automatic: true
             containerNames:
-              - stub-api
+              - stub-openapi
+              - stub-grpc
             from:
               kind: ImageStreamTag
               name: 'stub-api:latest'
@@ -161,3 +164,5 @@ objects:
       name: stub-api
     spec:
       name: latest
+      lookupPolicy:
+        local: true
