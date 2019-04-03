@@ -35,7 +35,7 @@ message InfoResponse {
   string connexionVersion = 2;
 
   // Version of Jaeger Client used by Stub API service
-  string jaegerClient = 3;
+  string jaegerClientVersion = 3;
 }
 
-message Empty {}
+message Empty {};

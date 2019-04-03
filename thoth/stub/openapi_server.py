@@ -27,7 +27,6 @@ from connexion.resolver import RestyResolver
 
 
 import opentracing
-from jaeger_client import Config as JaegerConfig
 from flask import redirect, jsonify
 from flask_script import Manager
 from prometheus_flask_exporter import PrometheusMetrics
@@ -35,10 +34,10 @@ from jaeger_client.metrics.prometheus import PrometheusMetricsFactory
 
 from thoth.common import datetime2datetime_str
 from thoth.common import init_logging
-from datetime import datetime
 
-from . import __version__
-from .configuration import Configuration
+from thoth.stub import __version__
+from thoth.stub.configuration import Configuration, init_jaeger_tracer
+
 
 # Configure global application logging using Thoth's init_logging.
 init_logging(logging_env_var_start="STUB_LOG_")
@@ -63,22 +62,6 @@ app.add_api(
 
 
 application = app.app
-
-
-def init_jaeger_tracer(service_name):
-    """Create a Jaeger/OpenTracing configuration."""
-    config = JaegerConfig(
-        config={
-            "sampler": {"type": "const", "param": 1},
-            "logging": True,
-            "local_agent": {"reporting_host": Configuration.JAEGER_HOST},
-        },
-        service_name=service_name,
-        validate=True,
-        metrics_factory=PrometheusMetricsFactory(namespace=service_name),
-    )
-
-    return config.initialize_tracer()
 
 
 # create tracer and put it in the application configuration

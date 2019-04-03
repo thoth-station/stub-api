@@ -26,18 +26,24 @@ import logging
 
 import grpc
 
-import stub_pb2
-import stub_pb2_grpc
 
 import opentracing
 from jaeger_client import Config as JaegerConfig
 from jaeger_client.metrics.prometheus import PrometheusMetricsFactory
+from jaeger_client import Config
+
+from grpc_opentracing import open_tracing_server_interceptor
+from grpc_opentracing.grpcext import intercept_server
 
 from thoth.common import init_logging
 
-from configuration import Configuration
+from thoth.stub import __version__
+from thoth.stub.configuration import Configuration, init_jaeger_tracer
 
-import api
+import thoth.stub.api as api
+import thoth.stub.stub_pb2 as stub_pb2
+import thoth.stub.stub_pb2_grpc as stub_pb2_grpc
+
 
 # Configure global application logging using Thoth's init_logging.
 init_logging(logging_env_var_start="STUB_LOG_")
@@ -55,17 +61,29 @@ _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 class StubServicer(stub_pb2_grpc.StubServicer):
     """Provides methods that implement functionality of the Stub gRPC server."""
 
+    def __init__(self, tracer):
+        self._tracer = tracer
+
     def Info(self, request, context):
-        _info = get_feature(self.db, request)
-        if _info is None:
-            return stub_pb2.Info()
-        else:
-            return _info
+        versions = api.info.info_response()
+
+        with self._tracer.start_span("stub_server_span", child_of=context.get_active_span().context):
+            return stub_pb2.InfoResponse(
+                version=versions["version"],
+                connexionVersion=versions["connexionVersion"],
+                jaegerClientVersion=versions["jaegerClientVersion"],
+            )
 
 
 def serve():
+    Configuration.tracer = init_jaeger_tracer("stub_api")
+
+    tracer_interceptor = open_tracing_server_interceptor(Configuration.tracer)
+
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    stub_pb2_grpc.add_StubServicer_to_server(StubServicer(), server)
+    server = intercept_server(server, tracer_interceptor)
+
+    stub_pb2_grpc.add_StubServicer_to_server(StubServicer(Configuration.tracer), server)
     server.add_insecure_port("[::]:50051")
     server.start()
 
@@ -74,6 +92,8 @@ def serve():
             time.sleep(_ONE_DAY_IN_SECONDS)
     except KeyboardInterrupt:
         server.stop(0)
+
+    Configuration.tracer.close()
 
 
 if __name__ == "__main__":

@@ -2,11 +2,11 @@
 
 This is a project demonstrating the basic structure of a API Service as
 used by the Thoth-Station. The service itself exports Prometheus metrics,
-and is instrumented to send Jaeger tracing. 
+and is instrumented to send Jaeger tracing.
 
 ## run the API locally
 
-`STUB_DEBUG=1 STUB_API_APP_SECRET_KEY=start123 gunicorn stub.entrypoint:app`
+`STUB_DEBUG=1 STUB_API_APP_SECRET_KEY=start123 gunicorn thoth.stub.openapi_server:app`
 
 ## run Jaeger locally
 

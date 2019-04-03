@@ -17,6 +17,7 @@
 
 """Implementation of API v1."""
 
+
 import logging
 import json
 import time
@@ -24,14 +25,25 @@ import time
 import requests
 import connexion
 import jaeger_client
-from connexion import NoContent
 
+
+from connexion import NoContent
 from opentracing_instrumentation.client_hooks import install_all_patches
 
-from stub import __version__
-from configuration import Configuration
+from thoth.stub import __version__
+from thoth.stub.configuration import Configuration
+
 
 _LOGGER = logging.getLogger(__name__)
+
+
+def info_response() -> dict:
+    """This method will do the real work."""
+    return {
+        "version": __version__,
+        "connexionVersion": connexion.__version__,
+        "jaegerClientVersion": jaeger_client.__version__,
+    }
 
 
 def info_get():
@@ -47,12 +59,4 @@ def info_get():
             # Make the actual request to webserver.
             requests.get(url)
 
-        return (
-            {
-                "version": __version__,
-                "connexionVersion": connexion.__version__,
-                "jaegerClientVersion": jaeger_client.__version__,
-            },
-            200,
-            {"x-thoth-stub-api-version": __version__},
-        )
+        return info_response(), 200, {"x-thoth-stub-api-version": __version__}

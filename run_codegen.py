@@ -19,5 +19,5 @@
 
 from grpc_tools import protoc
 
-protoc.main(("", "-I./protobuf_spec", "--python_out=./stub", "--grpc_python_out=./stub", "./protobuf_spec/stub.proto"))
+protoc.main(("", "-I./protobuf_spec", "--python_out=.", "--grpc_python_out=.", "./protobuf_spec/thoth/stub/stub.proto"))
 
