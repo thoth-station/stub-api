@@ -84,7 +84,7 @@ def serve():
     server = intercept_server(server, tracer_interceptor)
 
     stub_pb2_grpc.add_StubServicer_to_server(StubServicer(Configuration.tracer), server)
-    server.add_insecure_port("[::]:50051")
+    server.add_insecure_port("[::]:8443")
     server.start()
 
     try:

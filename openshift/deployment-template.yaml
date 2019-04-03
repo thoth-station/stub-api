@@ -5,7 +5,7 @@ metadata:
   annotations:
     description: "This is Stub API"
     openshift.io/display-name: "Stub API"
-    version: 0.2.0
+    version: 0.2.1
     tags: stub,thoth,api,ai-stacks
     template.openshift.io/documentation-url: "https://github.com/Thoth-Station/"
     template.openshift.io/long-description: "This is Stub API"
@@ -24,6 +24,8 @@ objects:
         app: stub
         component: stub-openapi
     spec:
+      port:
+        targetPort: http
       to:
         kind: Service
         name: stub-openapi
@@ -37,7 +39,8 @@ objects:
       name: stub-openapi
     spec:
       ports:
-        - port: 80
+        - name: http
+          port: 8080
           protocol: TCP
           targetPort: 8080
       selector:
@@ -51,10 +54,12 @@ objects:
         component: grpc
       name: stub-grpc
     spec:
+      type: ClusterIP
       ports:
-        - port: 443
+        - name: grpc
+          port: 8443
           protocol: TCP
-          targetPort: 50051
+          targetPort: 8443
       selector:
         service: stub-api
 
@@ -133,7 +138,7 @@ objects:
                       name: stub
                       key: sentry-dsn
               ports:
-                - containerPort: 50051
+                - containerPort: 8443
                   protocol: TCP
               resources:
                 requests:
