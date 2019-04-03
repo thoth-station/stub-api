@@ -15,9 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Thoth Stub API."""
+"""Runs protoc with the gRPC plugin to generate messages and gRPC stubs."""
 
+from grpc_tools import protoc
 
-__name__ = "stub"
-__author__ = "Christoph Görn <goern@redhat.com>"
-__version__ = "0.1.0"
+protoc.main(("", "-I./protobuf_spec", "--python_out=.", "--grpc_python_out=.", "./protobuf_spec/thoth/stub/stub.proto"))
+
