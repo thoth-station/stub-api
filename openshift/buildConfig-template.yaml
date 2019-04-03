@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: stub-api-deployment
+  annotations:
+    description: "This is Stub API"
+    openshift.io/display-name: "Stub API"
+    version: 0.2.0
+    tags: stub,thoth,api,ai-stacks
+    template.openshift.io/documentation-url: "https://github.com/Thoth-Station/"
+    template.openshift.io/long-description: "This is Stub API"
+    template.openshift.io/provider-display-name: "Red Hat, Inc."
+  labels:
+    template: stub-api-buildconfig
+    app: stub
+    component: stub-api
+
+parameters:
+  - description: Name of the GitHub repository for stub API
+    displayName: Git Repository
+    required: true
+    name: GITHUB_URL
+    value: 'https://github.com/thoth-station/stub-api'
+
+  - description: Git reference to be used for stub API
+    displayName: Git Reference
+    required: true
+    name: GITHUB_REF
+    value: 'master'
+
+  - description: >
+      Tag of the output ImageStream the resulting container image should go to
+    displayName: ImageStream Tag
+    required: true
+    name: IMAGE_STREAM_TAG
+    value: 'latest'
+
+objects:
+  - kind: BuildConfig
+    apiVersion: build.openshift.io/v1
+    metadata:
+      name: stub-api
+      labels:
+        app: stub
+        component: stub-api
+    spec:
+      resources:
+        requests:
+          cpu: 500m
+          memory: 512Mi
+        limits:
+          cpu: 1000m
+          memory: 768Mi
+      output:
+        to:
+          kind: ImageStreamTag
+          name: "stub-api:${IMAGE_STREAM_TAG}"
+      source:
+        type: Git
+        git:
+          uri: ${GITHUB_URL}
+          ref: ${GITHUB_REF}
+      strategy:
+        type: Source
+        sourceStrategy:
+          from:
+            kind: ImageStreamTag
+            name: python-36-centos7:latest
+          env:
+            - name: ENABLE_PIPENV
+              value: '1'
+            - name: UPGRADE_PIP_TO_LATEST
+              value: ''
+            - name: WEB_CONCURRENCY
+              value: '4'
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChange: {}
+
+

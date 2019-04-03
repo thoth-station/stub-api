@@ -58,8 +58,8 @@ objects:
       selector:
         service: stub-api
 
-  - apiVersion: v1
-    kind: DeploymentConfig
+  - kind: DeploymentConfig
+    apiVersion: v1
     metadata:
       labels:
         app: stub
@@ -118,8 +118,8 @@ objects:
                 timeoutSeconds: 10
             - name: stub-grpc
               env:
-                - name: APP_MODULE
-                  value: 'stub.entrypoint:app'
+                - name: APP_FILE
+                  value: 'thoth/stub/grpc_server.py'
                 - name: STUB_API_APP_SECRET_KEY
                   valueFrom:
                     secretKeyRef:
