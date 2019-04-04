@@ -5,7 +5,7 @@ metadata:
   annotations:
     description: "This is Stub API"
     openshift.io/display-name: "Stub API"
-    version: 0.2.0
+    version: 0.3.0
     tags: stub,thoth,api,ai-stacks
     template.openshift.io/documentation-url: "https://github.com/Thoth-Station/"
     template.openshift.io/long-description: "This is Stub API"

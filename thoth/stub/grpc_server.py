@@ -78,13 +78,22 @@ class StubServicer(stub_pb2_grpc.StubServicer):
 def serve():
     Configuration.tracer = init_jaeger_tracer("stub_api")
 
+    # read in key and certificate
+    with open("certs/tls.key", "rb") as f:
+        private_key = f.read()
+    with open("certs/tls.crt", "rb") as f:
+        certificate_chain = f.read()
+
+    # create server credentials
+    server_credentials = grpc.ssl_server_credentials(((private_key, certificate_chain),))
+
     tracer_interceptor = open_tracing_server_interceptor(Configuration.tracer)
 
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     server = intercept_server(server, tracer_interceptor)
 
     stub_pb2_grpc.add_StubServicer_to_server(StubServicer(Configuration.tracer), server)
-    server.add_insecure_port("[::]:8443")
+    server.add_secure_port(f"[::]:{Configuration.GRPC_PORT}", server_credentials)
     server.start()
 
     try:
