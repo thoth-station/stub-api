@@ -62,7 +62,7 @@ def main():
     # create credentials
     credentials = grpc.ssl_channel_credentials(root_certificates=trusted_certs)
 
-    with grpc.secure_channel(f"localhost:{Configuration.GRPC_PORT}", credentials) as channel:
+    with grpc.secure_channel(f"stub-grpc-goern-thoth-dev.cloud.paas.psi.redhat.com", credentials) as channel:
         stub = stub_pb2_grpc.StubStub(channel)
         e = stub_pb2.Empty()
 

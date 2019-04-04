@@ -5,7 +5,7 @@ metadata:
   annotations:
     description: "This is Stub API"
     openshift.io/display-name: "Stub API"
-    version: 0.2.1
+    version: 0.3.0
     tags: stub,thoth,api,ai-stacks
     template.openshift.io/documentation-url: "https://github.com/Thoth-Station/"
     template.openshift.io/long-description: "This is Stub API"
@@ -147,6 +147,15 @@ objects:
                 limits:
                   memory: "384Mi"
                   cpu: "500m"
+              volumeMounts:
+                - mountPath: /opt/app-root/src/certs
+                  name: stub-grpc-tls
+                  readOnly: true
+          volumes:
+            - name: stub-grpc-tls
+              secret:
+                defaultMode: 420
+                secretName: stub-grpc
       test: false
       triggers:
         - type: ConfigChange

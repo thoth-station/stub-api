@@ -18,7 +18,29 @@ You should know it by now: `pipenv install`
 
 ### Generate X.509 Certificates
 
-`openssl req -newkey rsa:2048 -nodes -keyout server.key -x509 -days 365 -out server.crt`
+```shell
+openssl req -newkey rsa:2048 -nodes -keyout server.key -x509 -days 365 -out server.crt -config <(
+cat <<-EOF
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+req_extensions = req_ext
+distinguished_name = dn
+
+[ dn ]
+C=DE
+L=Bonn
+CN=stub-grpc-goern-thoth-dev.cloud.paas.psi.redhat.com
+
+[ req_ext ]
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1=localhost
+EOF
+)
+```
 
 ### Generate GRPC code
 

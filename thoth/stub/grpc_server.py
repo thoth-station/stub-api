@@ -79,9 +79,9 @@ def serve():
     Configuration.tracer = init_jaeger_tracer("stub_api")
 
     # read in key and certificate
-    with open("server.key", "rb") as f:
+    with open("certs/tls.key", "rb") as f:
         private_key = f.read()
-    with open("server.crt", "rb") as f:
+    with open("certs/tls.crt", "rb") as f:
         certificate_chain = f.read()
 
     # create server credentials

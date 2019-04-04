@@ -128,3 +128,4 @@ dmypy.json
 # X.509 certs for gRPC
 server.crt
 server.key
+certs/
