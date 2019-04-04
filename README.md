@@ -4,6 +4,8 @@ This is a project demonstrating the basic structure of a API Service as
 used by the Thoth-Station. The service itself exports Prometheus metrics,
 and is instrumented to send Jaeger tracing.
 
+The gRPC server is using a self signed TLS certificate.
+
 ## installing dependencies
 
 You should know it by now: `pipenv install`
@@ -12,9 +14,7 @@ You should know it by now: `pipenv install`
 
 `STUB_DEBUG=1 STUB_API_APP_SECRET_KEY=start123 gunicorn thoth.stub.openapi_server:app`
 
-## run the gRPC Service locally
-
-`STUB_DEBUG=1 STUB_API_APP_SECRET_KEY=start123 PYTHONPATH=. ./thoth/stub/grpc_server.py`
+## run the gRPC Service
 
 ### Generate X.509 Certificates
 
@@ -42,9 +42,18 @@ EOF
 )
 ```
 
-### Generate GRPC code
+### run locally
+
+`STUB_DEBUG=1 STUB_API_APP_SECRET_KEY=start123 PYTHONPATH=. ./thoth/stub/grpc_server.py` Check for the hostname the demo client is communication with!
+
+### Generate GRPC code (optinal)
 
 You could generate all the files required for gRPC client and server: `./run_codegen.py`
+
+### Deploy to OpenShift
+
+The repository contains templates for deploying the Stub API to OpenShift. The TLS key and
+certificate are mounted into the gRPC server pod from a secret.
 
 ## run Jaeger locally
 

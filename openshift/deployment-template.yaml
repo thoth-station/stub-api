@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name:   
+  name:
   annotations:
     description: "This is Stub API"
     openshift.io/display-name: "Stub API"
@@ -29,6 +29,24 @@ objects:
       to:
         kind: Service
         name: stub-openapi
+
+  - kind: Route
+    apiVersion: route.openshift.io/v1
+    metadata:
+      labels:
+        app: stub
+        component: grpc
+      name: stub-grpc
+    spec:
+      port:
+        targetPort: grpc
+      tls:
+        termination: passthrough
+      to:
+        kind: Service
+        name: stub-grpc
+        weight: 100
+      wildcardPolicy: None
 
   - kind: Service
     apiVersion: v1
@@ -85,7 +103,7 @@ objects:
               image: stub-api
               env:
                 - name: APP_MODULE
-                  value: 'thoth.stub.openapi_server:app'
+                  value: "thoth.stub.openapi_server:app"
                 - name: STUB_API_APP_SECRET_KEY
                   valueFrom:
                     secretKeyRef:
@@ -108,7 +126,7 @@ objects:
                   cpu: "500m"
               readinessProbe:
                 httpGet:
-                  path: '/readiness'
+                  path: "/readiness"
                   port: 8080
                   scheme: HTTP
                 initialDelaySeconds: 5
@@ -116,7 +134,7 @@ objects:
                 timeoutSeconds: 10
               livenessProbe:
                 httpGet:
-                  path: '/liveness'
+                  path: "/liveness"
                   port: 8080
                   scheme: HTTP
                 initialDelaySeconds: 5
@@ -126,7 +144,7 @@ objects:
               image: stub-api
               env:
                 - name: APP_FILE
-                  value: 'thoth/stub/grpc_server.py'
+                  value: "thoth/stub/grpc_server.py"
                 - name: STUB_API_APP_SECRET_KEY
                   valueFrom:
                     secretKeyRef:
@@ -167,7 +185,7 @@ objects:
               - stub-grpc
             from:
               kind: ImageStreamTag
-              name: 'stub-api:latest'
+              name: "stub-api:latest"
 
   - kind: ImageStream
     apiVersion: image.openshift.io/v1
