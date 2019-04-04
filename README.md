@@ -16,6 +16,10 @@ You should know it by now: `pipenv install`
 
 `STUB_DEBUG=1 STUB_API_APP_SECRET_KEY=start123 PYTHONPATH=. ./thoth/stub/grpc_server.py`
 
+### Generate X.509 Certificates
+
+`openssl req -newkey rsa:2048 -nodes -keyout server.key -x509 -days 365 -out server.crt`
+
 ### Generate GRPC code
 
 You could generate all the files required for gRPC client and server: `./run_codegen.py`

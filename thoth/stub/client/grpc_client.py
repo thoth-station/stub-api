@@ -55,7 +55,14 @@ _LOGGER.debug("DEBUG mode is enabled!")
 
 
 def main():
-    with grpc.insecure_channel("localhost:50051") as channel:
+    # read in certificate
+    with open('server.crt', 'rb') as f:
+        trusted_certs = f.read()
+
+    # create credentials
+    credentials = grpc.ssl_channel_credentials(root_certificates=trusted_certs)
+
+    with grpc.secure_channel(f"localhost:{Configuration.GRPC_PORT}", credentials) as channel:
         stub = stub_pb2_grpc.StubStub(channel)
         e = stub_pb2.Empty()
 

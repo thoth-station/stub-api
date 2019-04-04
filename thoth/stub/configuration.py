@@ -31,6 +31,9 @@ class Configuration:
     SWAGGER_YAML_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../../openapi")
     JAEGER_HOST = os.getenv("JAEGER_HOST", "localhost")
 
+    OPENAPI_PORT = 8080
+    GRPC_PORT = 8443
+
     tracer = None
 
 
