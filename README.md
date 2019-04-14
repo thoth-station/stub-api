@@ -19,7 +19,7 @@ You should know it by now: `pipenv install`
 ### Generate X.509 Certificates
 
 ```shell
-openssl req -newkey rsa:2048 -nodes -keyout server.key -x509 -days 365 -out server.crt -config <(
+openssl req -newkey rsa:2048 -nodes -keyout certs/tls.key -x509 -days 365 -out certs/tls.crt -config <(
 cat <<-EOF
 [req]
 default_bits = 2048
