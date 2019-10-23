@@ -226,11 +226,11 @@
         },
         "grpcio-opentracing": {
             "hashes": [
-                "sha256:3d26eca286899ef0175b630fb7b1875557af74c6d9b2e52ca49644160eb5fa84",
-                "sha256:7302a464b5ea781d0a680d1e886db3a16071fca0876a65293a26c77ec9cad587"
+                "sha256:c90ac0ceac31d96a4e92742064fad099d42115df36cb33adf5eea6526204a130",
+                "sha256:cea56f355ffc1fdbecef98df127fbce5435745f4b134f3b2874a4246823d93ef"
             ],
             "index": "pypi",
-            "version": "==1.1.3"
+            "version": "==1.1.4"
         },
         "grpcio-tools": {
             "hashes": [
