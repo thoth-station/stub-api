@@ -73,15 +73,12 @@
             "version": "==1.2.2"
         },
         "connexion": {
-            "extras": [
-                "swagger-ui"
-            ],
             "hashes": [
-                "sha256:6e0569b646f2e6229923dc4e4c6e0325e223978bd19105779fd81e16bcb22fdf",
-                "sha256:7b4268e9ea837241e530738b35040345b78c8748d05d2c22805350aca0cd5b1c"
+                "sha256:3f6c2cb8a3f24af281ff561eebaaa926700b24f4c430f4d945c8ace0384c220c",
+                "sha256:56854c65334281b303120a1097df09a79ffa44bdaecfc4400e7194821e17566d"
             ],
             "index": "pypi",
-            "version": "==2.4.0"
+            "version": "==2.5.1"
         },
         "contextlib2": {
             "hashes": [
