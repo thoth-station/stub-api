@@ -55,6 +55,7 @@ _LOGGER.debug("DEBUG mode is enabled!")
 
 
 def main():
+    """Main method."""
     # read in certificate
     with open('server.crt', 'rb') as f:
         trusted_certs = f.read()
@@ -73,4 +74,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

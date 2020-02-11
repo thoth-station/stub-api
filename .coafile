@@ -12,10 +12,10 @@ language = Python
 editor = vim
 ignore = setup.py
 max_line_length = 120
+ignore = thoth/stub/stub_pb2.py, thoth/stub/stub_pb2_grpc.py
 
 [all.yaml]
 bears = YAMLLintBear
 files = **.yaml, **.yml, .zuul.yaml
 ignore = .zuul.yaml
 max_line_length = 180
-

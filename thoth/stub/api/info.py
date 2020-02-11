@@ -38,7 +38,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 def info_response() -> dict:
-    """This method will do the real work."""
+    """Real work is done by this method."""
     return {
         "version": __version__,
         "connexionVersion": connexion.__version__,
@@ -47,6 +47,7 @@ def info_response() -> dict:
 
 
 def info_get():
+    """Fetch information and traces all requests made."""
     with Configuration.tracer.start_span("info_get") as span:
         span.log_kv({"event": "info_get", "stub_api_version": __version__})
 
