@@ -62,9 +62,11 @@ class StubServicer(stub_pb2_grpc.StubServicer):
     """Provides methods that implement functionality of the Stub gRPC server."""
 
     def __init__(self, tracer):
+        """Init Method."""
         self._tracer = tracer
 
     def Info(self, request, context):
+        """Info method."""
         versions = api.info.info_response()
 
         with self._tracer.start_span("stub_server_span", child_of=context.get_active_span().context):
@@ -76,6 +78,7 @@ class StubServicer(stub_pb2_grpc.StubServicer):
 
 
 def serve():
+    """Read in key and cert and start's serving the server."""
     Configuration.tracer = init_jaeger_tracer("stub_api")
 
     # read in key and certificate
